@@ -7,11 +7,15 @@ This file creates your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for, flash
+from datetime import datetime
 
 
 ###
 # Routing for your application.
 ###
+@app.route('/profile/')
+def profile():
+    return render_template('profile.html', date_now = format_date_joined())
 
 @app.route('/')
 def home():
@@ -22,12 +26,18 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Hannah-Lisa Whittle")
 
 
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+
+#function to get current month and year
+def format_date_joined():
+    d = datetime.now()
+    return d.strftime("%B, %Y")
+
 
 @app.route('/<file_name>.txt')
 def send_text_file(file_name):
